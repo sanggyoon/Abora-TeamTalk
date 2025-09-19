@@ -1,0 +1,11 @@
+.dotBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: radial-gradient(rgb(66, 63, 68) 1px, transparent 1px);
+    background-size: 30px 30px; /* 도트 간격 조절 */
+    z-index: -2;
+    pointer-events: none;
+}

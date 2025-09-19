@@ -1,0 +1,125 @@
+.conversationRoomContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  overflow: visible;
+}
+
+.choosenAgent_A,
+.choosenAgent_B {
+  height: 100%;
+  width: 30%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: visible;
+}
+
+.chatBox {
+  height: calc(100vh - var(--headerFooterHeight) * 2);
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding-top: 1rem;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.chatBox::-webkit-scrollbar {
+  display: none;
+}
+
+.agent_A_avartar,
+.agent_B_avartar {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+}
+
+.name_agentA,
+.name_agentB {
+  background-color: #282631;
+  color: #ebdbff;
+  border: solid 1px #ae9ecd;
+  border-radius: 10px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  font-size: 1.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+
+  transform: translateY(20%);
+}
+
+.chatInput {
+  background-color: var(--background);
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: var(--headerFooterHeight);
+  z-index: 200;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chatInput input::placeholder{
+  font-size: 1.5rem;
+
+}
+
+.chatInput input {
+  width: 40%;
+  height: 100%;
+  border: none;
+  background-color: var(--background);
+  color: var(--signature);
+  margin: auto 0;
+  font-size: 1.3rem;
+  outline: none;
+}
+
+
+.button_stop {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.3rem;
+  line-height: 40px;
+  margin-right: 1rem;
+}
+
+.button_send {
+  border: 0px;
+  background-color: var(--signature);
+  color: white;
+  height: 40px;
+  padding: 10px 25px;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  display: flex;
+  align-content: center;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.agent_A_avatar,
+.agent_B_avatar{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
