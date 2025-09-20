@@ -32,15 +32,15 @@
 
 .card {
   animation: fadeIn 1s ease-out forwards;
-  border: 1px solid #a68eff;
+  border: 1px solid #ffffff;
   padding: 60px 40px;
   text-align: center;
   border-radius: 12px;
   max-width: 640px;
   width: 90%;
   backdrop-filter: blur(3px);
-  background-color: rgba(0, 0, 0, 0.3); /* 이거 꼭 있어야 blur 보임! */
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.3); /* 이거 꼭 있어야 blur 보임! */
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
   color: white;
 }
 
