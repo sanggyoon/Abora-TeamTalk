@@ -20,13 +20,13 @@ export default function Home() {
     const handleButtonClick = () => {
         setShowLoader(true);
         setTimeout(() => {
-            router.push('/ChooseAgent');
+            router.push('/OnboardingFirstPage');
         }, 1000); // 애니메이션 지속시간과 맞추기
     };
 
     return (
         <>
-            {hasMounted && showLoader && <LoaderGridfrom />}
+            {/*{hasMounted && showLoader && <LoaderGridfrom />}*/}
 
             <div className={styles.container}>
                 <div className={styles.card}>
