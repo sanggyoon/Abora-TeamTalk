@@ -1,5 +1,7 @@
 :root {
-  --background: #0a0a0a;
+  --background: radial-gradient(circle at top left, #f8faff, transparent),
+  radial-gradient(circle at bottom right, #a2e9ff, transparent), #7a70e0;
+  min-height: 100vh;
   --foreground: #ededed;
   --signature: #8c7cff;
   --headerFooterHeight: 4rem;
@@ -11,10 +13,10 @@ body {
   height: calc(100vh - var(--headerFooterHeight) * 2);
 }
 
-/*커서숨김*/
-body {
-  cursor: none;
-}
+/*!*커서숨김*!*/
+/*body {*/
+/*  cursor: none;*/
+/*}*/
 
 body {
   font-family: 'Pretendard-Regular', sans-serif;
@@ -41,40 +43,40 @@ a {
   text-decoration: none;
 }
 button{
-  cursor: none;
+  cursor: pointer;
 }
 
-header {
-  height: var(--headerFooterHeight);
-  width: 100%;
-  color: var(--signature);
-  padding: 1rem 0;
-  border-bottom: solid 1px #929292;
-  position: fixed;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  background-color: var(--background);
-  overflow-x: hidden;
-}
+/*header {*/
+/*  height: var(--headerFooterHeight);*/
+/*  width: 100%;*/
+/*  color: var(--signature);*/
+/*  padding: 1rem 0;*/
+/*  border-bottom: solid 1px #929292;*/
+/*  position: fixed;*/
+/*  top: 0;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  z-index: 100;*/
+/*  background-color: var(--background);*/
+/*  overflow-x: hidden;*/
+/*}*/
 
-footer {
-  height: var(--headerFooterHeight);
-  width: 100%;
-  color: var(--signature);
-  padding: 1rem 0;
-  border-top: solid 1px #929292;
-  position: fixed;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 100;
-  background-color: var(--background);
-  overflow-x: hidden;
-}
+/*footer {*/
+/*  height: var(--headerFooterHeight);*/
+/*  width: 100%;*/
+/*  color: var(--signature);*/
+/*  padding: 1rem 0;*/
+/*  border-top: solid 1px #929292;*/
+/*  position: fixed;*/
+/*  bottom: 0;*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*  z-index: 100;*/
+/*  background-color: var(--background);*/
+/*  overflow-x: hidden;*/
+/*}*/
 
 p {
   text-align: center;

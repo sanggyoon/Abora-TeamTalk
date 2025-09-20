@@ -2,7 +2,6 @@ import { useGLTF, useAnimations } from '@react-three/drei';
 import { useRef, useEffect, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
-// @ts-ignore
 import * as Hangul from 'hangul-js';
 import mapKoreanToShape from '../../../utils/mapKoreanToShape';
 
