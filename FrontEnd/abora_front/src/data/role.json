@@ -1,0 +1,18 @@
+[
+  {
+    "imageSrc": "/iconImage/roleIcon1.png",
+    "title": "개발자"
+  },
+  {
+    "imageSrc": "/iconImage/roleIcon2.png",
+    "title": "디자이너"
+  },
+  {
+    "imageSrc": "/iconImage/roleIcon3.png",
+    "title": "기획자"
+  },
+  {
+    "imageSrc": "/iconImage/roleIcon4.png",
+    "title": "기타/학생"
+  }
+]
