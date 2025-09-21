@@ -1,16 +1,13 @@
 
 
 .circular-text {
-    /*margin: 0 auto;*/
-    /*border-radius: 50%;*/
+    margin: 0 auto;
+    border-radius: 500px;
     width: 650px;
     position: relative;
-    /*left: 50%;*/
-    /*top: 50%;*/
     height: 650px;
     font-weight: bold;
     color: #fff;
-    /*font-weight: 900;*/
     text-align: center;
     cursor: pointer;
     /*transform-origin: 50% 50%;*/
