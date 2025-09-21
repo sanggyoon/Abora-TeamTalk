@@ -1,0 +1,16 @@
+.textWrapper{
+    border-radius: 50px;
+
+    display: inline-flex;
+    /*flex:0 0 auto;*/
+
+    justify-content: center;
+    padding:2px 7px;
+
+
+    vertical-align: middle;
+}
+
+.text{
+    font-weigth:bold;
+}
