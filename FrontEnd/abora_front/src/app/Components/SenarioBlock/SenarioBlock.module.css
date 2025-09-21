@@ -1,0 +1,14 @@
+.pointList {
+    list-style: none;
+    padding-left: 0;
+}
+
+.pointList li {
+    text-align: start;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+.desc p {
+    width: 80%;
+}
