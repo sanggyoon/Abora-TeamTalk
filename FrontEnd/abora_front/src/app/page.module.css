@@ -30,20 +30,6 @@
   overflow: hidden;
 }
 
-.card {
-  animation: fadeIn 1s ease-out forwards;
-  border: 1px solid #ffffff;
-  padding: 60px 40px;
-  text-align: center;
-  border-radius: 12px;
-  max-width: 640px;
-  width: 90%;
-  backdrop-filter: blur(3px);
-  background-color: rgba(255, 255, 255, 0.3); /* 이거 꼭 있어야 blur 보임! */
-  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
-  color: white;
-}
-
 .title {
   font-size: 1.8rem;
   font-weight: 900;
@@ -51,6 +37,31 @@
 
 .Maintitle{
   font-family: 'Pretendard-Black', sans-serif;
+  position: absolute;
+  /*left:50%;*/
+  /*top: 50%;*/
+  /*width:100%;*/
+  /*height: 100%;*/
+}
+
+
+.backgroundCircle {
+  position: absolute;
+  /*top: 50%;*/
+  /*left: 50%;*/
+  transform: translate(-50%, -50%); /* 원 중심을 기준으로 이동 */
+  z-index: 0;
+  opacity: 0.7;
+}
+
+
+.foreground {
+  /*width: 90%;*/
+  color: white;
+  padding: 60px 40px;
+  text-align: center;
+  position: relative;
+  z-index: 1; /* 앞에 오도록 */
 }
 
 .subtitle {
