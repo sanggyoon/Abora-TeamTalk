@@ -5,12 +5,21 @@
   --foreground: #ededed;
   --signature: #8c7cff;
   --headerFooterHeight: 4rem;
+
+  --gray-text : #000000;
+  --select-color : #35B4FD;
+  --font-size-base : 16px;
 }
 
 html,
 body {
   max-width: 100vw;
   height: calc(100vh - var(--headerFooterHeight) * 2);
+  font-size: var(--font-size-base);
+}
+
+button{
+  font-size: var(--font-size-base);
 }
 
 /*!*커서숨김*!*/
@@ -82,6 +91,10 @@ p {
   text-align: center;
 }
 
+input{
+  text-align: center;
+}
+
 header span,
 footer span {
   animation: textMove 5s linear infinite;
@@ -113,4 +126,3 @@ footer span {
 body {
   font-family: 'Pretendard', sans-serif;
 }
-
