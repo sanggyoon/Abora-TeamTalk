@@ -22,7 +22,7 @@ body {
   font-family: 'Pretendard-Regular', sans-serif;
   color: var(--foreground);
   background: var(--background);
-  display: flex;
+  /*display: flex;*/
   flex-direction: column;
   justify-content: center;
   align-items: center;
