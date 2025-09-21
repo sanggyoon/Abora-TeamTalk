@@ -1,3 +1,11 @@
+.textCenter{
+    gap:10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
 .headerText{
     color: black;
     display: flex;
@@ -10,4 +18,12 @@
     gap:10px;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.inputStyle:focus{
+    outline: none
+}
+
+.buttonDesc{
+    color: #5C5C5C;
 }
