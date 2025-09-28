@@ -42,6 +42,7 @@ export default function ChooseAgent() {
 
   return (
       <>
+        <LoaderGridto/>
     <div className={styles.chooseAgentContainer}>
       {/* 슬라이드 A */}
       <div className={styles.chooseAgent_A}>
