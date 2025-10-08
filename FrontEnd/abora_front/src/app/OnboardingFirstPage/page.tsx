@@ -11,6 +11,7 @@ import WhiteBlock from "@/app/Components/ui/WhiteBloack/WhiteBlock";
 export default function OnboardingFirstPage() {
     const router = useRouter();
     const [activeList, setActiveList] = useState([false, false, false]);
+    const [selectedRole, setSelectedRole] = useState<Role | null>(null); //toggle에서 선택한 role을 상태로 관리
 
     const toggle = (index: number) => {
         setActiveList((prev) =>
@@ -20,13 +21,14 @@ export default function OnboardingFirstPage() {
 
     const handleSelectRole = (role:Role,idx:number)=>{
         toggle(idx);
-        localStorage.setItem("UserRole",role);//로컬 스토리지에 저장
+        setSelectedRole(role);
     }
 
 
     const handleButtonClick = () => {
+        if(!selectedRole) return;
         setTimeout(() => {
-            router.push('/OnboardingSecondPage');
+            router.push(`/OnboardingSecondPage?role=${selectedRole}`);
         }, 1000); // 애니메이션 지속시간과 맞추기
     };
 
@@ -57,7 +59,7 @@ export default function OnboardingFirstPage() {
             {/*다음페이지로 ->버튼*/}
             <div className={style.textCenter}>
                 <TitleTextBlock>
-                    <button onClick={handleButtonClick} style={{backgroundColor : "black", border:"none"}}>
+                    <button onClick={()=>handleButtonClick()} style={{backgroundColor : "black", border:"none"}}>
                         <p style={{color: "white"}}>시나리오 선택하기</p>
                     </button>
                 </TitleTextBlock>
