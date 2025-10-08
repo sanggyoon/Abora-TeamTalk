@@ -4,3 +4,9 @@ export enum Role{
     Planner = "planner",
     Designer = "designer"
 }
+
+export enum ChatRole {
+    User = "user",
+    AgentA = "agentA",
+    AgentB = "agentB",
+}
