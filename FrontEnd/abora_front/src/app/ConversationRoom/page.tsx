@@ -13,7 +13,6 @@ import {
   AgentABubble,
   AgentBBubble,
 } from '../Components/ChatBubble';
-import TypingText from '../Components/GSAP/TypingText';
 import InitialScrambleText from '../Components/GSAP/InitialScrambleText';
 
 function ConversationContent() {
