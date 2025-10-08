@@ -14,7 +14,7 @@ export default function RoldBadge({role}:RoleBadgeProps) {
             color={roleData.color}
             name={roleData.name}
             role={roleData.role}
-            iconSrc="/icons/planner.png"
+            iconSrc={roleData.profileImageSrc}
         />
     );
 }
