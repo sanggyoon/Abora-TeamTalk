@@ -11,7 +11,7 @@ import common from "@/app/Components/common/common.module.css"
 import AvatarBlock from "@/app/Components/feature/AvatarBlock/AvatarBlock";
 import {Role} from "@/app/types/enum";
 import {RoleConfig} from "@/app/config/RoleConfig";
-import slideData from "@/app/slideData";
+
 
 
 export default function OnboardingSecondPage() {
@@ -36,9 +36,9 @@ export default function OnboardingSecondPage() {
     //     );
     // };
 
-    const handleSelectRole = (role:Role,idx:number)=>{
-        activeToggle(idx);
-    }
+    // const handleSelectRole = (role:Role,idx:number)=>{
+    //     activeToggle(idx);
+    // }
 //roleParam의 filter로 나머지 role 값을 각각 agentA,B에 저장하기
     const handleButtonClick = () => {
         const otherRoles = Object.values(Role).filter((role) => role !== roleParam);
