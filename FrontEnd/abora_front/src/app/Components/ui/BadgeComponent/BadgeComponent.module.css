@@ -11,5 +11,6 @@
 }
 
 .nameImg {
-
+    display: flex;
+    flex-direction: row;
 }

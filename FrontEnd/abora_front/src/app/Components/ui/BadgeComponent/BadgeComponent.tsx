@@ -1,5 +1,6 @@
 import styles from "./BadgeComponent.module.css"
 import React from "react";
+import Image from "next/image";
 
 interface RoleBadgeProps{
     color : string;
@@ -16,10 +17,10 @@ export default function BadgeComponent({color="black", name="defalut", role="def
     return (
         <div>
             <div className={styles.nameImg}>
-                <img src={iconSrc} alt={`${name} 아이콘`} className={styles.icon}/>
-                <span className={styles.name} style={{color:color}}>
+                <Image src={iconSrc} alt={`${name} 아이콘`} className={styles.icon} width={30} height={30}/>
+                <div className={styles.name} style={{color:color}}>
                     {name}
-                </span>
+                </div>
             </div>
             <span className={styles.role}>
                 {role}
