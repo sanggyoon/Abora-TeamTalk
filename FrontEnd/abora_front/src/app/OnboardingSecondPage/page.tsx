@@ -3,17 +3,24 @@
 // import WhiteBlock from "@/app/Components/WhiteBloack/WhiteBlock";
 import style from "./page.module.css"
 import TitleTextBlock from "@/app/Components/ui/TitleTextBlack/TitleTextBlock";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import SenarioBlock from "@/app/Components/SenarioBlock/SenarioBlock";
 import {useState} from "react";
 import scenarios from "@/data/senario.json"
 import common from "@/app/Components/common/common.module.css"
 import AvatarBlock from "@/app/Components/feature/AvatarBlock/AvatarBlock";
 import {Role} from "@/app/types/enum";
+import {RoleConfig} from "@/app/config/RoleConfig";
+import slideData from "@/app/slideData";
 
 
 export default function OnboardingSecondPage() {
     const router = useRouter();
+    const params = useSearchParams();
+    const roleParam = params?.get("role") as Role;
+
+    const roleData = RoleConfig[roleParam];
+
     const [activeList, setActiveList] = useState([false, false, false]);
     // const [personaList, setPersonaList] = useState([false, false, false]);
 
@@ -29,11 +36,16 @@ export default function OnboardingSecondPage() {
     //     );
     // };
 
-
+    const handleSelectRole = (role:Role,idx:number)=>{
+        activeToggle(idx);
+    }
+//roleParam의 filter로 나머지 role 값을 각각 agentA,B에 저장하기
     const handleButtonClick = () => {
-        setTimeout(() => {
-            router.push('/ConversationRoom');
-        }, 1000); // 애니메이션 지속시간과 맞추기
+        const otherRoles = Object.values(Role).filter((role) => role !== roleParam);
+        const agentA = otherRoles[0];
+        const agentB = otherRoles[1];
+        router.push(`/ConversationRoom?agentA=${agentA}&agentB=${agentB}`);
+
     };
 
     return (
@@ -61,11 +73,10 @@ export default function OnboardingSecondPage() {
                     </div>
                 </div>
                 <div className={style.container}>
-                    <h3 className={style.headerText}>함께할 동료는 누구인가요?</h3>
+                    <h3 className={style.headerText}>{roleData.role}인 당신과 함께할 동료를 소개합니다.</h3>
                     <div className={style.roleSection}>
-                        {/*여기서 현재 선택한 role빼고 role 반환*/}
                         {
-                            Object.values(Role).filter((role)=>localStorage.getItem("role")!=role).map((role)=>{
+                            Object.values(Role).filter((role)=>roleParam!=role).map((role)=>{
                                 return <AvatarBlock as="div" key={role} role={role} style={{border:`2px solid white`}}/>;
                                 // }onClick={() => personaToggle(idx)} style={{ border: `2px solid ${personaList[idx] ? "var(--select-color)" : "white"}` }}
                             })

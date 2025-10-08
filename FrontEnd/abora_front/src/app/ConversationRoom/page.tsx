@@ -14,11 +14,28 @@ import {
   AgentBBubble,
 } from '../Components/ChatBubble';
 import InitialScrambleText from '../Components/GSAP/InitialScrambleText';
+import {ChatRole, Role} from "@/app/types/enum";
+import {RoleConfig} from "@/app/config/RoleConfig";
 
 function ConversationContent() {
+
+  //코드에서 변수명을 바꾸는 일이 없도록 하기 위해 이곳에서 모든 변수의 값을 관리합니다.
+  type AgentData = (typeof RoleConfig)[keyof typeof RoleConfig]; //? 이게뭐지
+
   const searchParams = useSearchParams();
-  const agentA = searchParams?.get('agentA') || '';
-  const agentB = searchParams?.get('agentB') || '';
+  //agent
+  const agentA = searchParams?.get("agentA") as Role;
+  const agentB = searchParams?.get("agentB") as Role;
+
+  //agentData
+  const agentAData : AgentData = RoleConfig[agentA];
+  const agentBData : AgentData = RoleConfig[agentB];
+
+  // voice 탐색
+  const voiceA = agentAData.voice;
+  const voiceB = agentBData.voice;
+
+  //현재 시간
   const currentTime = new Date().toLocaleString();
   const [currentIndex, setCurrentIndex] = useState(-1);
 
@@ -28,17 +45,18 @@ function ConversationContent() {
     {
       speaker: string;
       message: string;
-      type: 'user' | 'agentA' | 'agentB';
+      type: ChatRole;
       timestamp: string;
     }[]
   >([]);
+
   const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [currentSpeaker, setCurrentSpeaker] = useState<
-    'agentA' | 'agentB' | null
-  >(null);
+
+  const [currentSpeaker, setCurrentSpeaker] = useState<ChatRole | null>(null); //null이 있으면 안되는거 아님?
 
   const chatBoxRef = useRef<HTMLDivElement>(null); // 채팅 영역 참조
+
 
   // 립싱크 제어
   const [lipSyncA, setLipSyncA] = useState<{
@@ -51,18 +69,9 @@ function ConversationContent() {
   } | null>(null);
 
 
-
-  // agent 이름과 같은 slideData에서 찾음
-  const agentDataA = slideData.find((item) => item.name === agentA) || null;
-  const agentDataB = slideData.find((item) => item.name === agentB) || null;
-
   const [isSpeakingA, setIsSpeakingA] = useState(false);
   const [isSpeakingB, setIsSpeakingB] = useState(false);
 
-
-  // voice 탐색
-  const voiceA = agentDataA?.voice;
-  const voiceB = agentDataB?.voice;
 
   // 상호작용에 따른 모션 제어
   const currentActionA = isLoading
@@ -79,16 +88,18 @@ function ConversationContent() {
 
 
   const renderAvatar = (
-    agent: (typeof slideData)[0] | null,
+    agent: Role,
     currentAction: string,
     lipSync: { json: string; mp3: string } | null,
     onAudioEnd: () => void
   ) => {
+    const roleData = RoleConfig[agent];
+
     if (!agent) return null;
     return (
       <AvatarScene
-        ModelComponent={agent.Component}
-        glbPath={agent.glb}
+        ModelComponent={roleData.Component}
+        glbPath={roleData.glb}
         currentAction={currentAction}
         jsonFilename={lipSync?.json}
         mp3Filename={lipSync?.mp3}
@@ -109,15 +120,16 @@ function ConversationContent() {
 
   useEffect(() => {
     const play = async () => {
-      const msg = messagesToPlay[currentIndex];
+      const msg = messagesToPlay[currentIndex];//현재 인덱스의 메시지를 읽어야됨
+
       if (!msg) return;
 
       setMessages((prev) => [...prev, msg]);
 
-      const voice = msg.type === 'agentA' ? voiceA : voiceB;
+      const voice = msg.type === 'agentA' ? agentAData.voice : agentBData.voice; //메시지의 타입?
 
-      if (msg.type === 'agentA') setIsSpeakingA(true);
-      else if (msg.type === 'agentB') setIsSpeakingB(true);
+      if (msg.type === agentAData) setIsSpeakingA(true);
+      else if (msg.type === agentBData.voice) setIsSpeakingB(true);
 
       const res = await fetch('http://localhost:8000/tts/speak', {
         method: 'POST',
@@ -178,7 +190,7 @@ function ConversationContent() {
             <div className={styles.name_agentA}>
               <InitialScrambleText to={agentA}/>
             </div>
-            {renderAvatar(agentDataA, currentActionA, lipSyncA, () => {
+            {renderAvatar(agentA, currentActionA, lipSyncA, () => {
               setIsSpeakingA(false); // 재생 종료
               if (currentSpeaker === 'agentA')
                 if (currentIndex + 1 >= messagesToPlay.length) {
@@ -193,11 +205,11 @@ function ConversationContent() {
         {/* 채팅 영역 */}
         <div className={styles.chatBox} ref={chatBoxRef}>
           <AgentABubble
-            message={`안녕, 나는 <b>${agentA}</b>이야.`}
+            message={`안녕, 나는 <b>${agentAData.name}</b>이야.`}
             timestamp={currentTime}
           />
           <AgentBBubble
-            message={`안녕, 나는  <b>${agentB}</b>이야.`}
+            message={`안녕, 나는  <b>${agentBData.name}</b>이야.`}
             timestamp={currentTime}
           />
           {messages.map((msg, index) => {
@@ -240,7 +252,7 @@ function ConversationContent() {
           )}
           <div className={styles.agent_B_avatar}>
             <div className={styles.name_agentB}><InitialScrambleText to={agentB}/></div>
-            {renderAvatar(agentDataB, currentActionB, lipSyncB, () => {
+            {renderAvatar(agentB, currentActionB, lipSyncB, () => {
               setIsSpeakingB(false); // 재생 종료
               if (currentSpeaker === 'agentB')
                 if (currentIndex + 1 >= messagesToPlay.length) {
