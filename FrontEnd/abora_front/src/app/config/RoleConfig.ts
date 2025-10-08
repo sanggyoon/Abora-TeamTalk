@@ -18,8 +18,8 @@ export const RoleConfig = {
         profileImageSrc: "/icon/PersonaProfileIcon/Developer.png",
         Component: Avatar_GPT,
         glb: '/models/sanggyun.glb',
-        voice : 'ko-KR-Chirp3-HD-Achird',
-        },
+        voice : "ko-KR-Chirp3-HD-Achird",
+    },
     [Role.Planner]: { color: "#C58B3A", role: "기획자", name:"Dune",
         personality: {
             title: "성격",
@@ -33,7 +33,7 @@ export const RoleConfig = {
         profileImageSrc: "/icon/PersonaProfileIcon/Planner.png",
         Component: Avatar_Claude,
         glb: '/models/dongnyeon.glb',
-        voice: 'ko-KR-Wavenet-D',
+        voice: "ko-KR-Wavenet-D",
     },
     [Role.Designer]: { color: "#997EFF", role: "디자이너", name:"Soni",
         personality: {
@@ -48,7 +48,7 @@ export const RoleConfig = {
         profileImageSrc: "/icon/PersonaProfileIcon/Designer.png",
         Component: Avatar_Llama,
         glb: '/models/jungmin.glb',
-        voice: 'ko-KR-Wavenet-B',
+        voice: "ko-KR-Wavenet-B",
 
     },
 };
