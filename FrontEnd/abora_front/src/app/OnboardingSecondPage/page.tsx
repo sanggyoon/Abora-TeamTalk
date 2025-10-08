@@ -15,17 +15,24 @@ import {Role} from "@/app/types/enum";
 export default function OnboardingSecondPage() {
     const router = useRouter();
     const [activeList, setActiveList] = useState([false, false, false]);
+    // const [personaList, setPersonaList] = useState([false, false, false]);
 
-    const toggle = (index: number) => {
+    const activeToggle = (index: number) => {
         setActiveList((prev) =>
             prev.map((item, i) => (i === index ? !item : item))
         );
     };
 
+    // const personaToggle = (index: number) => {
+    //     setPersonaList((prev) =>
+    //         prev.map((item, i) => (i === index ? !item : item))
+    //     );
+    // };
+
 
     const handleButtonClick = () => {
         setTimeout(() => {
-            router.push('/OnboardingSecondPage');
+            router.push('/ConversationRoom');
         }, 1000); // 애니메이션 지속시간과 맞추기
     };
 
@@ -46,7 +53,7 @@ export default function OnboardingSecondPage() {
                                 description={s.description}
                                 goal={s.goal}
                                 points={s.points}
-                                onClick={() => toggle(idx)}
+                                onClick={() => activeToggle(idx)}
                                 inlineStyle={{border: `2px solid ${activeList[idx] ? "var(--select-color)" : "white"}`}}
 
                             />
@@ -58,8 +65,9 @@ export default function OnboardingSecondPage() {
                     <div className={style.roleSection}>
                         {/*여기서 현재 선택한 role빼고 role 반환*/}
                         {
-                            Object.values(Role).map((role)=>{
-                                return <AvatarBlock key={role} role={role}/>;
+                            Object.values(Role).filter((role)=>localStorage.getItem("role")!=role).map((role)=>{
+                                return <AvatarBlock as="div" key={role} role={role} style={{border:`2px solid white`}}/>;
+                                // }onClick={() => personaToggle(idx)} style={{ border: `2px solid ${personaList[idx] ? "var(--select-color)" : "white"}` }}
                             })
                         }
                     </div>
