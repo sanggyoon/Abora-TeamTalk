@@ -9,20 +9,20 @@ interface AvatarBlockProps {
     as?: "div" | "button";
     role : Role; //role 기반으로 가져옴
     onClick?: () => void;
-    inlineStyle?: React.CSSProperties;
+    style?: React.CSSProperties;
 }
 
 
 export default function AvatarBlock({
                                          as: Tag = "div", role,
                                          onClick,
-                                         inlineStyle,
+                                         style,
                                      }: AvatarBlockProps) {
 
     const roleData = RoleConfig[role];
 
     return (
-        <Tag className={common.background} style={inlineStyle} onClick={onClick}>
+        <Tag className={common.background} style={style} onClick={onClick}>
 
             <AvatarScene
                 ModelComponent={roleData.Component}

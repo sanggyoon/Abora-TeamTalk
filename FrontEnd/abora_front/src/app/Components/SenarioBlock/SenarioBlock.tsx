@@ -1,7 +1,7 @@
 import styles from "./SenarioBlock.module.css";
 import common from "@/app/Components/common/common.module.css";
 import Image from "next/image";
-import DescTitleBlock from "@/app/Components/DescTitleBlock/DescTitleBlock";
+import DescTitleBlock from "@/app/Components/ui/DescTitleBlock/DescTitleBlock";
 
 interface SenarioBlockProps {
     as?: "div" | "button";
