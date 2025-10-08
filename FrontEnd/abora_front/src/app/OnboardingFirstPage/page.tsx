@@ -1,24 +1,27 @@
 "use client";
 
-import roles from "@/data/role.json";
-import WhiteBlock from "@/app/Components/WhiteBloack/WhiteBlock";
 import style from "./page.module.css"
-import TitleTextBlock from "@/app/Components/TitleTextBlack/TitleTextBlock";
-// import style1 from "@/app/Components/TitleTextBlack/TitleTextBlock.module.css";
+import TitleTextBlock from "@/app/Components/ui/TitleTextBlack/TitleTextBlock";
 import {useRouter} from "next/navigation";
-// import {white} from "next/dist/lib/picocolors";
 import {useState} from "react";
 import common from "@/app/Components/common/common.module.css"
+import {Role} from "@/app/types/enum";
+import WhiteBlock from "@/app/Components/ui/WhiteBloack/WhiteBlock";
 
 export default function OnboardingFirstPage() {
     const router = useRouter();
-    const [activeList, setActiveList] = useState([false, false, false, false]);
+    const [activeList, setActiveList] = useState([false, false, false]);
 
     const toggle = (index: number) => {
         setActiveList((prev) =>
             prev.map((item, i) => (i === index ? !item : item))
         );
     };
+
+    const handleSelectRole = (role:Role,idx:number)=>{
+        toggle(idx);
+        localStorage.setItem("UserRole",role);//로컬 스토리지에 저장
+    }
 
 
     const handleButtonClick = () => {
@@ -34,16 +37,9 @@ export default function OnboardingFirstPage() {
                 <h3 className={style.headerText}>당신은 직군을 선택하세요</h3>
                 <div className={style.roleSection}>
                     {
-                        roles.map((role, idx)=>(
-                            <WhiteBlock
-                                as="button"
-                                key={idx}
-                                imageSrc={role.imageSrc}
-                                onClick={() => toggle(idx)}
-                                title={role.title}
-                                style={{ border: `2px solid ${activeList[idx] ? "var(--select-color)" : "white"}` }}
-                            />
-                        ))
+                        Object.values(Role).map((role, idx)=>{
+                            return <WhiteBlock as="button" onClick={() => handleSelectRole(role,idx)} key={role} role={role} style={{ border: `2px solid ${activeList[idx] ? "var(--select-color)" : "white"}` }}/>;
+                        })
                     }
                 </div>
             </div>
