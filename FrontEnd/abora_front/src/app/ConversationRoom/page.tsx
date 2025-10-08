@@ -1,18 +1,13 @@
 'use client';
 
-import React, { Suspense, useEffect, useRef, useState } from 'react';
+import React, {Suspense, useEffect, useRef, useState} from 'react';
 import LoadingComponent from '../Components/LoadingComponent';
 import styles from './page.module.css';
-import { useSearchParams } from 'next/navigation';
+import {useSearchParams} from 'next/navigation';
 import AvatarScene from '../Components/Avatar/AvatarScene';
-import slideData from '../slideData';
 import handleSendMessage from '../Components/handleSendMessage';
 
-import {
-  UserBubble,
-  AgentABubble,
-  AgentBBubble,
-} from '../Components/ChatBubble';
+import {AgentABubble, AgentBBubble, UserBubble,} from '../Components/ChatBubble';
 import InitialScrambleText from '../Components/GSAP/InitialScrambleText';
 import {ChatRole, Role} from "@/app/types/enum";
 import {RoleConfig} from "@/app/config/RoleConfig";
@@ -112,7 +107,7 @@ function ConversationContent() {
   useEffect(() => {
     if (messages.length > 0) {
       const lastMessage = messages[messages.length - 1];
-      if (lastMessage.type === 'agentA' || lastMessage.type === 'agentB') {
+      if (lastMessage.type === ChatRole.AgentA || lastMessage.type === ChatRole.AgentB) {
         setCurrentSpeaker(lastMessage.type);
       }
     }
@@ -131,6 +126,8 @@ function ConversationContent() {
       if (msg.type === agentAData) setIsSpeakingA(true);
       else if (msg.type === agentBData.voice) setIsSpeakingB(true);
 
+
+      //api 관리
       const res = await fetch('http://localhost:8000/tts/speak', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
