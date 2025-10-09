@@ -19,7 +19,7 @@ export default function OnboardingFirstPage() {
         );
     };
 
-    const handleSelectRole = (role:Role,idx:number)=>{
+    const handleSelectRole = (role:Role, idx:number)=>{
         toggle(idx);
         setSelectedRole(role);
     }
@@ -46,15 +46,15 @@ export default function OnboardingFirstPage() {
                 </div>
             </div>
 
-            {/*이름입력*/}
-            <div className={style.textCenter}>
-                <TitleTextBlock text={"이름"}/>
-                <div>
-                    <TitleTextBlock backgroundColor={"white"}>
-                        <input type={"text"} className={style.inputStyle} style={{border:"1px solid white"}}/>
-                    </TitleTextBlock>
-                </div>
-            </div>
+            {/*/!*이름입력*!/*/}
+            {/*<div className={style.textCenter}>*/}
+            {/*    <TitleTextBlock text={"방 이름"}/>*/}
+            {/*    <div>*/}
+            {/*        <TitleTextBlock backgroundColor={"white"}>*/}
+            {/*            <input type={"text"} className={style.inputStyle} style={{border:"1px solid white"}}/>*/}
+            {/*        </TitleTextBlock>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
             {/*다음페이지로 ->버튼*/}
             <div className={style.textCenter}>
