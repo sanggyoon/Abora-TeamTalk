@@ -5,12 +5,14 @@ import LoadingComponent from '../Components/LoadingComponent';
 import styles from './page.module.css';
 import {useSearchParams} from 'next/navigation';
 import AvatarScene from '../Components/Avatar/AvatarScene';
-import handleSendMessage from '../Components/handleSendMessage';
+import handleSendMessage from './utils/handleSendMessage';
 
 import {AgentABubble, AgentBBubble, UserBubble,} from '../Components/ChatBubble';
 import InitialScrambleText from '../Components/GSAP/InitialScrambleText';
 import {ChatRole, Role} from "@/app/types/enum";
 import {RoleConfig} from "@/app/config/RoleConfig";
+import {LipSyncData, Message} from "@/app/types/interface";
+import {useMessagePlayer} from "@/app/ConversationRoom/hooks/useMessagePlayer";
 
 function ConversationContent() {
 
@@ -26,24 +28,13 @@ function ConversationContent() {
   const agentAData : AgentData = RoleConfig[agentA];
   const agentBData : AgentData = RoleConfig[agentB];
 
-  // voice 탐색
-  const voiceA = agentAData.voice;
-  const voiceB = agentBData.voice;
-
   //현재 시간
   const currentTime = new Date().toLocaleString();
   const [currentIndex, setCurrentIndex] = useState(-1);
 
   const [inputValue, setInputValue] = useState('');
-  const [messagesToPlay, setMessagesToPlay] = useState([]);
-  const [messages, setMessages] = useState<
-    {
-      speaker: string;
-      message: string;
-      type: ChatRole;
-      timestamp: string;
-    }[]
-  >([]);
+  const [messagesToPlay, setMessagesToPlay] = useState<Message[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const [isFocused, setIsFocused] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -54,14 +45,8 @@ function ConversationContent() {
 
 
   // 립싱크 제어
-  const [lipSyncA, setLipSyncA] = useState<{
-    json: string;
-    mp3: string;
-  } | null>(null);
-  const [lipSyncB, setLipSyncB] = useState<{
-    json: string;
-    mp3: string;
-  } | null>(null);
+  const [lipSyncA, setLipSyncA] = useState<LipSyncData | null>(null);
+  const [lipSyncB, setLipSyncB] = useState<LipSyncData | null>(null);
 
 
   const [isSpeakingA, setIsSpeakingA] = useState(false);
@@ -113,37 +98,18 @@ function ConversationContent() {
     }
   }, [messages]);
 
-  useEffect(() => {
-    const play = async () => {
-      const msg = messagesToPlay[currentIndex];//현재 인덱스의 메시지를 읽어야됨
-
-      if (!msg) return;
-
-      setMessages((prev) => [...prev, msg]);
-
-      const voice = msg.type === 'agentA' ? agentAData.voice : agentBData.voice; //메시지의 타입?
-
-      if (msg.type === agentAData) setIsSpeakingA(true);
-      else if (msg.type === agentBData.voice) setIsSpeakingB(true);
-
-
-      //api 관리
-      const res = await fetch('http://localhost:8000/tts/speak', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text: msg.message, voice }),
-      });
-
-      const data = await res.json();
-      const filename = data.filename;
-      const json = data.json;
-
-      const setLipSync = msg.type === 'agentA' ? setLipSyncA : setLipSyncB;
-      setLipSync({ json, mp3: filename });
-    };
-
-    if (currentIndex >= 0) play();
-  }, [currentIndex]);
+  //customeHook 생성
+  useMessagePlayer({
+    messagesToPlay,
+    currentIndex,
+    agentAData,
+    agentBData,
+    setMessages,
+    setIsSpeakingA,
+    setIsSpeakingB,
+    setLipSyncA,
+    setLipSyncB,
+  });
 
   // 메시지가 추가될 때마다 스크롤을 가장 하단으로 이동
   useEffect(() => {
@@ -157,11 +123,7 @@ function ConversationContent() {
     try {
       // 메시지 전송 로직
       await handleSendMessage(
-        voiceA || 'defaultVoiceA',
-        voiceB || 'defaultVoiceB',
         inputValue,
-        setLipSyncA,
-        setLipSyncB,
         setInputValue,
         setMessages,
         setMessagesToPlay,
@@ -179,8 +141,8 @@ function ConversationContent() {
         <div className={styles.choosenAgent_A}>
           {(isLoading || isSpeakingA) && (
               <LoadingComponent
-                  type="agentA"
-                  isActive={currentSpeaker === 'agentA'}
+                  type={ChatRole.AgentA}
+                  isActive={currentSpeaker === ChatRole.AgentA}
               />
           )}
           <div className={styles.agent_A_avatar}>
@@ -189,7 +151,7 @@ function ConversationContent() {
             </div>
             {renderAvatar(agentA, currentActionA, lipSyncA, () => {
               setIsSpeakingA(false); // 재생 종료
-              if (currentSpeaker === 'agentA')
+              if (currentSpeaker === ChatRole.AgentA)
                 if (currentIndex + 1 >= messagesToPlay.length) {
                 setCurrentSpeaker(null); // 모든 메시지 끝났을 때 초기화
               } else {
@@ -210,7 +172,7 @@ function ConversationContent() {
             timestamp={currentTime}
           />
           {messages.map((msg, index) => {
-            if (msg.type === 'user') {
+            if (msg.type === ChatRole.User) {
               return (
                 <UserBubble
                   key={index}
@@ -218,7 +180,7 @@ function ConversationContent() {
                   timestamp={msg.timestamp}
                 />
               );
-            } else if (msg.type === 'agentA') {
+            } else if (msg.type === ChatRole.AgentA) {
               return (
                 <AgentABubble
                   key={index}
@@ -226,7 +188,7 @@ function ConversationContent() {
                   timestamp={msg.timestamp}
                 />
               );
-            } else if (msg.type === 'agentB') {
+            } else if (msg.type === ChatRole.AgentB) {
               return (
                 <AgentBBubble
                   key={index}
@@ -243,15 +205,15 @@ function ConversationContent() {
         <div className={styles.choosenAgent_B}>
           {(isLoading || isSpeakingB) && (
               <LoadingComponent
-                  type="agentB"
-                  isActive={currentSpeaker === 'agentB'}
+                  type={ChatRole.AgentB}
+                  isActive={currentSpeaker === ChatRole.AgentB}
               />
           )}
           <div className={styles.agent_B_avatar}>
             <div className={styles.name_agentB}><InitialScrambleText to={agentB}/></div>
             {renderAvatar(agentB, currentActionB, lipSyncB, () => {
               setIsSpeakingB(false); // 재생 종료
-              if (currentSpeaker === 'agentB')
+              if (currentSpeaker === ChatRole.AgentB)
                 if (currentIndex + 1 >= messagesToPlay.length) {
                 setCurrentSpeaker(null); // 모든 메시지 끝났을 때 초기화
               } else {
