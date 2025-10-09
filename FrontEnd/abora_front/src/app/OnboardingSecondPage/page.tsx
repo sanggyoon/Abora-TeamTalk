@@ -39,14 +39,30 @@ export default function OnboardingSecondPage() {
     // const handleSelectRole = (role:Role,idx:number)=>{
     //     activeToggle(idx);
     // }
-//roleParam의 filter로 나머지 role 값을 각각 agentA,B에 저장하기
+
+    //roleParam의 filter로 나머지 role 값을 각각 agentA,B에 저장하기
     const handleButtonClick = () => {
+        // 1. 현재 선택된 role을 제외하고 나머지 역할 2개 구하기
         const otherRoles = Object.values(Role).filter((role) => role !== roleParam);
         const agentA = otherRoles[0];
         const agentB = otherRoles[1];
-        router.push(`/ConversationRoom?agentA=${agentA}&agentB=${agentB}`);
 
+        // 2. 1~999 랜덤 session_id 생성
+        // const sessionId = Math.floor(Math.random() * 999) + 1;
+        const sessionId_ad = 999;
+
+        // 3. 로컬스토리지에 세션 정보 저장
+        const sessionData = {
+            session_id: sessionId_ad,
+            sender_role: roleParam, // 현재 사용자 역할
+            is_user: true,
+        };
+        localStorage.setItem("chatSession", JSON.stringify(sessionData));
+
+        // 4️. 대화방으로 이동 (agent 정보 전달)
+        router.push(`/ConversationRoom?agentA=${agentA}&agentB=${agentB}`);
     };
+
 
     return (
         <div className={common.container}>
@@ -67,7 +83,6 @@ export default function OnboardingSecondPage() {
                                 points={s.points}
                                 onClick={() => activeToggle(idx)}
                                 inlineStyle={{border: `2px solid ${activeList[idx] ? "var(--select-color)" : "white"}`}}
-
                             />
                         ))}
                     </div>
