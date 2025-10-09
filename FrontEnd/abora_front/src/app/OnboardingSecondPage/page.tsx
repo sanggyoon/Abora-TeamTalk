@@ -11,6 +11,7 @@ import common from "@/app/Components/common/common.module.css"
 import AvatarBlock from "@/app/Components/feature/AvatarBlock/AvatarBlock";
 import {Role} from "@/app/types/enum";
 import {RoleConfig} from "@/app/config/RoleConfig";
+import roleToKorean from "@/app/config/mapKorean";
 
 
 
@@ -54,7 +55,7 @@ export default function OnboardingSecondPage() {
         // 3. 로컬스토리지에 세션 정보 저장
         const sessionData = {
             session_id: sessionId_ad,
-            sender_role: roleParam, // 현재 사용자 역할
+            sender_role: roleToKorean[roleParam], // 현재 사용자 역할
             is_user: true,
         };
         localStorage.setItem("chatSession", JSON.stringify(sessionData));
