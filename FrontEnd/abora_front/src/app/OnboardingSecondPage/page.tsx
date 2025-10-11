@@ -21,13 +21,14 @@ export default function OnboardingSecondPage() {
 
     const roleData = RoleConfig[roleParam];
 
-    const [activeList, setActiveList] = useState([false, false, false]);
-    // const [personaList, setPersonaList] = useState([false, false, false]);
+    const [selectedScenarioIndex, setSelectedScenarioIndex] = useState<number | null>(null);
 
-    const activeToggle = (index: number) => {
-        setActiveList((prev) =>
-            prev.map((item, i) => (i === index ? !item : item))
-        );
+    const handleSelectScenario = (index: number) => {
+        setSelectedScenarioIndex(index);
+        
+        // localStorage에 선택된 시나리오 저장
+        const selectedScenario = scenarios[index];
+        localStorage.setItem('selectedScenario', JSON.stringify(selectedScenario));
     };
 
     // const personaToggle = (index: number) => {
@@ -81,8 +82,8 @@ export default function OnboardingSecondPage() {
                                 description={s.description}
                                 goal={s.goal}
                                 points={s.points}
-                                onClick={() => activeToggle(idx)}
-                                inlineStyle={{border: `2px solid ${activeList[idx] ? "var(--select-color)" : "white"}`}}
+                                onClick={() => handleSelectScenario(idx)}
+                                inlineStyle={{border: `2px solid ${selectedScenarioIndex === idx ? "var(--select-color)" : "white"}`}}
                             />
                         ))}
                     </div>

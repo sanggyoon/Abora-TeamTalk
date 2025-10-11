@@ -12,8 +12,8 @@ import WhiteBlock from "@/app/Components/ui/WhiteBloack/WhiteBlock";
 
 export default function OnboardingFirstPage() {
     const router = useRouter();
-    const [activeList, setActiveList] = useState([false, false, false]);
-    const [selectedRole, setSelectedRole] = useState<Role | null>(null); //toggle에서 선택한 role을 상태로 관리
+    const [selectedRoleIndex, setSelectedRoleIndex] = useState<number | null>(null);
+    const [selectedRole, setSelectedRole] = useState<Role | null>(null);
 
     // 로그인 체크
     useEffect(() => {
@@ -28,15 +28,12 @@ export default function OnboardingFirstPage() {
         checkAuth();
     }, [router]);
 
-    const toggle = (index: number) => {
-        setActiveList((prev) =>
-            prev.map((item, i) => (i === index ? !item : item))
-        );
-    };
-
-    const handleSelectRole = (role:Role, idx:number)=>{
-        toggle(idx);
+    const handleSelectRole = (role: Role, idx: number) => {
+        setSelectedRoleIndex(idx);
         setSelectedRole(role);
+        
+        // localStorage에 선택된 role 저장
+        localStorage.setItem('selectedRole', role);
     }
 
 
@@ -55,7 +52,7 @@ export default function OnboardingFirstPage() {
                 <div className={style.roleSection}>
                     {
                         Object.values(Role).map((role, idx)=>{
-                            return <WhiteBlock as="button" onClick={() => handleSelectRole(role,idx)} key={role} role={role} style={{ border: `2px solid ${activeList[idx] ? "var(--select-color)" : "white"}` }}/>;
+                            return <WhiteBlock as="button" onClick={() => handleSelectRole(role,idx)} key={role} role={role} style={{ border: `2px solid ${selectedRoleIndex === idx ? "var(--select-color)" : "white"}` }}/>;
                         })
                     }
                 </div>
