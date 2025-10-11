@@ -1,9 +1,11 @@
 "use client";
 
 import style from "./page.module.css"
+import { useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 import TitleTextBlock from "@/app/Components/ui/TitleTextBlack/TitleTextBlock";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
+import { useState } from "react";
 import common from "@/app/Components/common/common.module.css"
 import {Role} from "@/app/types/enum";
 import WhiteBlock from "@/app/Components/ui/WhiteBloack/WhiteBlock";
@@ -12,6 +14,19 @@ export default function OnboardingFirstPage() {
     const router = useRouter();
     const [activeList, setActiveList] = useState([false, false, false]);
     const [selectedRole, setSelectedRole] = useState<Role | null>(null); //toggle에서 선택한 role을 상태로 관리
+
+    // 로그인 체크
+    useEffect(() => {
+        const checkAuth = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            
+            if (!session) {
+                router.push("/login");
+            }
+        };
+
+        checkAuth();
+    }, [router]);
 
     const toggle = (index: number) => {
         setActiveList((prev) =>

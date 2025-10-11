@@ -1,0 +1,69 @@
+.headerText {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-primary, #000);
+}
+
+.formContainer {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.inputGroup {
+    margin-bottom: 1.5rem;
+}
+
+.inputGroup label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.inputStyle {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+    box-sizing: border-box;
+}
+
+.inputStyle:focus {
+    outline: none;
+    border-color: var(--select-color, #007bff);
+}
+
+.errorText {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.buttonGroup {
+    margin-top: 1.5rem;
+}
+
+.toggleButton {
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+.toggleButton:hover {
+    color: #0056b3;
+}
