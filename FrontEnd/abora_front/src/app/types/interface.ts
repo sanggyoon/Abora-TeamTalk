@@ -30,3 +30,18 @@ export interface ChatSession {
 
     room_name:string; //프론트만 가지고 있으면 됨.
 }
+
+//응답 받을 때 interface
+export interface ResponseChatResponse {
+    success: boolean;
+    ai_role: string;
+    content: string;
+    session_id: string;
+}
+
+export interface ClientChatMessage {
+    speaker: string;
+    message: string;
+    type: ChatRole;
+    timestamp: string;
+}
