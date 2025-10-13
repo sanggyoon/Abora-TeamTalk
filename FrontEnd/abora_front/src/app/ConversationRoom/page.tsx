@@ -21,11 +21,11 @@ function ConversationContent() {
 
   const searchParams = useSearchParams();
   //agent
-  const agentA = searchParams?.get("agentA") as Role;
-  const agentB = searchParams?.get("agentB") as Role;
+  const agentA:Role = searchParams?.get("agentA") as Role;
+  const agentB:Role = searchParams?.get("agentB") as Role;
 
   //agentData
-  const agentAData : AgentData = RoleConfig[agentA];
+  const agentAData : AgentData = RoleConfig[agentA];//진짜 role 역할인거임
   const agentBData : AgentData = RoleConfig[agentB];
 
   //현재 시간
@@ -33,6 +33,8 @@ function ConversationContent() {
   const [currentIndex, setCurrentIndex] = useState(-1);
 
   const [inputValue, setInputValue] = useState('');
+
+  //message
   const [messagesToPlay, setMessagesToPlay] = useState<Message[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
 
@@ -127,7 +129,7 @@ function ConversationContent() {
         setInputValue,
         setMessages,
         setMessagesToPlay,
-        setCurrentIndex,
+        setCurrentIndex, agentA, agentB
       );
     } finally {
       setIsLoading(false); // 로딩 종료
