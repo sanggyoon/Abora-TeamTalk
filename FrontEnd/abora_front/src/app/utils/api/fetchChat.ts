@@ -29,8 +29,10 @@ export async function sendChatMessage( content : string) {
         throw new Error(`메시지 전송 실패: ${res.status}`);
     }
 
+    // console.log("content 길이:", res.content?.length);
+    // console.log("content 내용:", JSON.stringify(res.content));
     console.log(res.status);
-    console.log(res.body);
+    console.log("res의 body :", res.body);
     console.log(Object.fromEntries(res.headers.entries()))
 
     //4 응답 반환
