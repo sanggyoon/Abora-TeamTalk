@@ -68,7 +68,7 @@ export default async function handleSendMessage(
     setMessages((prev) => [...prev, newMessage]);
 
     //4. 다음 메시지 재생 준비
-    setMessagesToPlay(newMessages);       // 전체 메시지 큐 설정
+    setMessagesToPlay([newMessage]);       // 전체 메시지 큐 설정
     setCurrentIndex(0);                   // 첫 메시지부터 시작
     // 모든 메시지 처리 완료 후 mp3/json 삭제 요청
 
