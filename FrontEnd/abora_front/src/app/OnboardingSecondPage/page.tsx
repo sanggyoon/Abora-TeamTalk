@@ -12,7 +12,7 @@ import AvatarBlock from '@/app/Components/feature/AvatarBlock/AvatarBlock';
 import { Role } from '@/app/types/enum';
 import { RoleConfig } from '@/app/config/RoleConfig';
 import { supabase } from '@/lib/supabase';
-// import roleToKorean from '@/app/config/mapKorean';
+import roleToKorean from '@/app/config/mapKorean';
 
 export default function OnboardingSecondPage() {
   const router = useRouter();
@@ -127,7 +127,7 @@ export default function OnboardingSecondPage() {
       // 추가: 세션 정보도 함께 저장 (기존 코드 호환성)
       const chatSessionData = {
         session_id: sessionId,
-        sender_role: roleParam,
+        sender_role: roleToKorean(roleParam),
         is_user: true,
       };
       localStorage.setItem('chatSession', JSON.stringify(chatSessionData));
