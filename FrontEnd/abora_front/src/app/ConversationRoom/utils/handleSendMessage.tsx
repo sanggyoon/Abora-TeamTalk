@@ -57,6 +57,7 @@ export default async function handleSendMessage(
     const aiRoleEnglish = getRoleByKorean(data.ai_role)
     const type = aiRoleEnglish === agentA ? ChatRole.AgentA : aiRoleEnglish === agentB ? ChatRole.AgentB : ChatRole.User;
 
+    //클라이언트가 원하는 형태로 응답 형태 변경
     const newMessage:ClientChatMessage = {
       speaker: data.ai_role ?? "AI",
       message: data.content ?? "",
@@ -64,8 +65,11 @@ export default async function handleSendMessage(
       timestamp: new Date().toLocaleString(),
     };
 
-    // 기존 state에 추가
-    setMessages((prev) => [...prev, newMessage]);
+    console.log(newMessage);
+
+    // 기존 prev message 배열에 새로운 new message 를 추가
+    // setMessages((prev) => [...prev, newMessage]);
+    //만약 백엔드에서 배열의 형태로 보내온다면 message 배열로 관리해야하고 해당 메서드가 필요할 것임.
 
     //4. 다음 메시지 재생 준비
     setMessagesToPlay([newMessage]);       // 전체 메시지 큐 설정

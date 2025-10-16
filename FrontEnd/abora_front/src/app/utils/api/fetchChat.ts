@@ -25,6 +25,8 @@ export async function sendChatMessage( content : string) {
         body: JSON.stringify(body),
     });
 
+    console.log("res data 답변 :",res);
+
     if (!res.ok) {
         throw new Error(`메시지 전송 실패: ${res.status}`);
     }
@@ -35,13 +37,12 @@ export async function sendChatMessage( content : string) {
     console.log("res의 body :", res.body);
     console.log(Object.fromEntries(res.headers.entries()))
 
-    //4 응답 반환
-    //응답이 비어 있을 때 대비
+    //4 응답 반환(응답 받은 text)
     const text = await res.text();
     console.log(text);
 
 
-    if (!text) return {}; // 혹은 return null;
+    if (!text) return null; // 혹은 return null;
     try {
         return JSON.parse(text);
     } catch {
