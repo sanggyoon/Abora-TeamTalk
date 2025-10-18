@@ -1,16 +1,14 @@
-import { Message } from "../../types/interface";
+import { ChatRole } from "@/app/types/enum";
 
 export function getVoiceByType(
-    type: Message["type"],
+    type: ChatRole,
     agentAData: { voice: string },
     agentBData: { voice: string }
 ) {
-    switch (type) {
-        case "agentA":
-            return agentAData.voice;
-        case "agentB":
-            return agentBData.voice;
-        default:
-            return "default_voice";
+    if (type === ChatRole.AgentA) {
+        return agentAData.voice;
+    } else if (type === ChatRole.AgentB) {
+        return agentBData.voice;
     }
+    return agentAData.voice;
 }

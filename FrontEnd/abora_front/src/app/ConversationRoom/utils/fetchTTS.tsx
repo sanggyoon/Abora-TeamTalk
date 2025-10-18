@@ -1,7 +1,5 @@
 export async function fetchTTS(text: string, voice: string) {
-    const API_URL = process.env.API_URL;
-
-    const res = await fetch(`${API_URL}/tts/speak`, {
+    const res = await fetch('http://localhost:8000/tts/speak', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text, voice }),
