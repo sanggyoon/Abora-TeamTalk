@@ -16,6 +16,8 @@ export async function sendChatMessage( content : string) {
         sender_role: session.sender_role,
         is_user: true,
         content: content,
+        worker1_role: session.worker1_role,
+        worker2_role: session.worker2_role,
     };
 
     // 3 API 전송

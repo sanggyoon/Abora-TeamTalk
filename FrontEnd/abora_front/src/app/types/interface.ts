@@ -20,6 +20,8 @@ export interface Chat{
     is_user : boolean, //로그인 여부 : 일단 고정
 
     content : string, //content 유저의 채팅
+    worker1_role : Role, //설문에서 선택한 AI 1의 역할
+    worker2_role : Role, //설문에서 선택한 AI 2의 역할
 }
 
 //한 session이 가지고 있어야할 기본적인 session-info
@@ -29,6 +31,8 @@ export interface ChatSession {
     is_user: boolean;
 
     room_name:string; //프론트만 가지고 있으면 됨.
+    worker1_role: Role; //설문에서 선택한 AI 1의 역할
+    worker2_role: Role; //설문에서 선택한 AI 2의 역할
 }
 
 //응답 받을 때 interface
