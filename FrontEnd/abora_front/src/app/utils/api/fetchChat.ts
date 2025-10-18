@@ -20,35 +20,48 @@ export async function sendChatMessage( content : string) {
         worker2_role: session.worker2_role,
     };
 
+    console.log("📤 전송할 데이터:", JSON.stringify(body, null, 2));
+    console.log("📡 API URL:", `${process.env.NEXT_PUBLIC_API_URL}/webhook/expert-models`);
+
     // 3 API 전송
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/webhook/expert-models`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-    });
-
-    console.log("res data 답변 :",res);
-
-    if (!res.ok) {
-        throw new Error(`메시지 전송 실패: ${res.status}`);
-    }
-
-    // console.log("content 길이:", res.content?.length);
-    // console.log("content 내용:", JSON.stringify(res.content));
-    console.log(res.status);
-    console.log("res의 body :", res.body);
-    console.log(Object.fromEntries(res.headers.entries()))
-
-    //4 응답 반환(응답 받은 text)
-    const text = await res.text();
-    console.log(text);
-
-
-    if (!text) return null; // 혹은 return null;
     try {
-        return JSON.parse(text);
-    } catch {
-        return { raw: text }; // 혹은 throw new Error("JSON 파싱 실패");
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/webhook/expert-models`, {
+            method: "POST",
+            headers: { 
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        });
+
+        console.log("✅ 응답 상태:", res.status);
+        console.log("✅ 응답 헤더:", Object.fromEntries(res.headers.entries()));
+
+        if (!res.ok) {
+            const errorText = await res.text();
+            console.error("❌ 에러 응답:", errorText);
+            throw new Error(`메시지 전송 실패: ${res.status} - ${errorText}`);
+        }
+
+        //4 응답 반환(응답 받은 text)
+        const text = await res.text();
+        console.log("📥 응답 텍스트:", text);
+
+        if (!text) {
+            throw new Error("응답이 비어있습니다.");
+        }
+
+        try {
+            const parsed = JSON.parse(text);
+            console.log("✅ 파싱된 데이터:", parsed);
+            return parsed;
+        } catch (parseError) {
+            console.error("❌ JSON 파싱 실패:", parseError);
+            throw new Error(`JSON 파싱 실패: ${text}`);
+        }
+
+    } catch (fetchError) {
+        console.error("❌ Fetch 에러:", fetchError);
+        throw fetchError;
     }
 
 }

@@ -129,6 +129,8 @@ export default function OnboardingSecondPage() {
         session_id: sessionId,
         sender_role: roleToKorean(roleParam),
         is_user: true,
+        worker1_role: roleToKorean(agentA),
+        worker2_role: roleToKorean(agentB),
       };
       localStorage.setItem('chatSession', JSON.stringify(chatSessionData));
 

@@ -111,6 +111,7 @@ function ConversationContent() {
     setIsSpeakingB,
     setLipSyncA,
     setLipSyncB,
+    setCurrentIndex, // 추가
   });
 
   // 메시지가 추가될 때마다 스크롤을 가장 하단으로 이동

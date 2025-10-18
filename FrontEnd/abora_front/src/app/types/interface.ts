@@ -38,9 +38,12 @@ export interface ChatSession {
 //응답 받을 때 interface
 export interface ResponseChatResponse {
     success: boolean;
-    ai_role: string;
-    content: string;
-    session_id: string;
+    session_id: number;
+    messages: Array<{
+        ai_role: string;
+        content: string;
+        created_at: string;
+    }>;
 }
 
 export interface ClientChatMessage {
