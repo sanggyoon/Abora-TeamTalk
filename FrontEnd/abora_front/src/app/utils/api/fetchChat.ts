@@ -19,7 +19,7 @@ export async function sendChatMessage( content : string) {
     };
 
     // 3 API 전송
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/webhook/chat`, {//이것도 env에 넣어야 하지않아? config나 api 주소만 모아두는 곳에
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/webhook/expert-models`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
