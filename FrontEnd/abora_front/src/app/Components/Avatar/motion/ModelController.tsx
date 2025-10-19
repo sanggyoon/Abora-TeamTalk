@@ -80,7 +80,7 @@ export default function ModelController({
                 }
             }
 
-            const audio = new Audio(`http://localhost:8000/tts/${mp3Filename}`);
+            const audio = new Audio(`http://localhost:8000/public/tts/${mp3Filename}`);
 
             audio.onplay = () => {
                 timeline.forEach(({ phoneme, start, end }) => {

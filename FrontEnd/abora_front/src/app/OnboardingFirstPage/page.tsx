@@ -1,27 +1,39 @@
 "use client";
 
 import style from "./page.module.css"
+import { useEffect } from "react";
+import { supabase } from "@/lib/supabase";
 import TitleTextBlock from "@/app/Components/ui/TitleTextBlack/TitleTextBlock";
 import {useRouter} from "next/navigation";
-import {useState} from "react";
+import { useState } from "react";
 import common from "@/app/Components/common/common.module.css"
 import {Role} from "@/app/types/enum";
 import WhiteBlock from "@/app/Components/ui/WhiteBloack/WhiteBlock";
 
 export default function OnboardingFirstPage() {
     const router = useRouter();
-    const [activeList, setActiveList] = useState([false, false, false]);
-    const [selectedRole, setSelectedRole] = useState<Role | null>(null); //toggle에서 선택한 role을 상태로 관리
+    const [selectedRoleIndex, setSelectedRoleIndex] = useState<number | null>(null);
+    const [selectedRole, setSelectedRole] = useState<Role | null>(null);
 
-    const toggle = (index: number) => {
-        setActiveList((prev) =>
-            prev.map((item, i) => (i === index ? !item : item))
-        );
-    };
+    // 로그인 체크
+    useEffect(() => {
+        const checkAuth = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            
+            if (!session) {
+                router.push("/login");
+            }
+        };
 
-    const handleSelectRole = (role:Role,idx:number)=>{
-        toggle(idx);
+        checkAuth();
+    }, [router]);
+
+    const handleSelectRole = (role: Role, idx: number) => {
+        setSelectedRoleIndex(idx);
         setSelectedRole(role);
+        
+        // localStorage에 선택된 role 저장
+        localStorage.setItem('selectedRole', role);
     }
 
 
@@ -40,21 +52,21 @@ export default function OnboardingFirstPage() {
                 <div className={style.roleSection}>
                     {
                         Object.values(Role).map((role, idx)=>{
-                            return <WhiteBlock as="button" onClick={() => handleSelectRole(role,idx)} key={role} role={role} style={{ border: `2px solid ${activeList[idx] ? "var(--select-color)" : "white"}` }}/>;
+                            return <WhiteBlock as="button" onClick={() => handleSelectRole(role,idx)} key={role} role={role} style={{ border: `2px solid ${selectedRoleIndex === idx ? "var(--select-color)" : "white"}` }}/>;
                         })
                     }
                 </div>
             </div>
 
-            {/*이름입력*/}
-            <div className={style.textCenter}>
-                <TitleTextBlock text={"이름"}/>
-                <div>
-                    <TitleTextBlock backgroundColor={"white"}>
-                        <input type={"text"} className={style.inputStyle} style={{border:"1px solid white"}}/>
-                    </TitleTextBlock>
-                </div>
-            </div>
+            {/*/!*이름입력*!/*/}
+            {/*<div className={style.textCenter}>*/}
+            {/*    <TitleTextBlock text={"방 이름"}/>*/}
+            {/*    <div>*/}
+            {/*        <TitleTextBlock backgroundColor={"white"}>*/}
+            {/*            <input type={"text"} className={style.inputStyle} style={{border:"1px solid white"}}/>*/}
+            {/*        </TitleTextBlock>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
 
             {/*다음페이지로 ->버튼*/}
             <div className={style.textCenter}>

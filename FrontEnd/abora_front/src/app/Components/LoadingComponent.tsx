@@ -1,8 +1,9 @@
 import React from 'react';
 import styles from './LoadingComponent.module.css';
+import {ChatRole} from "@/app/types/enum";
 
 interface LoadingComponentProps {
-  type: 'agentA' | 'agentB';
+  type: ChatRole.AgentA | ChatRole.AgentB;
   isActive: boolean;
 }
 
@@ -13,7 +14,7 @@ const LoadingComponent: React.FC<LoadingComponentProps> = ({
   return (
     <div
       className={`${styles.square} ${
-        type === 'agentA' ? styles.agentA : styles.agentB
+        type === ChatRole.AgentA ? styles.agentA : styles.agentB
       } ${isActive ? styles.active : ''}`}
     >
       <span></span>

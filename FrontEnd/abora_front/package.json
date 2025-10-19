@@ -12,6 +12,7 @@
     "@gsap/react": "^2.1.2",
     "@react-three/drei": "^10.0.7",
     "@react-three/fiber": "^9.1.2",
+    "@supabase/supabase-js": "^2.75.0",
     "gsap": "^3.13.0",
     "motion": "^12.23.16",
     "next": "15.3.0",
