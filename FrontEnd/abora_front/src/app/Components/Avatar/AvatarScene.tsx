@@ -23,6 +23,7 @@ export default function AvatarScene({
 }: AvatarSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [cameraZoom, setCameraZoom] = useState(500);
+  const [key, setKey] = useState(0);
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
@@ -43,16 +44,48 @@ export default function AvatarScene({
     };
   }, []);
 
+  // WebGL Context Lost 처리
+  useEffect(() => {
+    const handleContextLost = (event: Event) => {
+      event.preventDefault();
+      console.warn('WebGL context lost. Attempting to restore...');
+      setTimeout(() => setKey(prev => prev + 1), 100);
+    };
+
+    const handleContextRestored = () => {
+      console.log('WebGL context restored');
+    };
+
+    const canvas = containerRef.current?.querySelector('canvas');
+    if (canvas) {
+      canvas.addEventListener('webglcontextlost', handleContextLost);
+      canvas.addEventListener('webglcontextrestored', handleContextRestored);
+    }
+
+    return () => {
+      if (canvas) {
+        canvas.removeEventListener('webglcontextlost', handleContextLost);
+        canvas.removeEventListener('webglcontextrestored', handleContextRestored);
+      }
+    };
+  }, []);
+
 
     return (
         <div ref={containerRef} style={{ height: '60vh', width: '95%'}}>
             <Canvas
+                key={key}
                 orthographic
                 camera={{
                     zoom: 135,
                     near: 1,
                     far: 50,
                     position: [0, 0, 45],
+                }}
+                gl={{ 
+                    preserveDrawingBuffer: true,
+                    antialias: true,
+                    powerPreference: 'high-performance'
                 }}
             >
                 <ambientLight intensity={0.3}/>
