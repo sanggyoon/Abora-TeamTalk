@@ -8,7 +8,7 @@
   background-color: white;
   color: black;
   padding: 1rem;
-  border-radius: 20px;
+  border-radius: 1rem;
   align-self: flex-end;
 }
 
@@ -32,7 +32,7 @@
   background-color: white;
   color: #000000;
   padding: 1rem;
-  border-radius: 100px;
+  border-radius: 28px;
   align-self: flex-end;
   /*border: 1px solid #c5ae65;*/
   max-width: 100%;
@@ -55,7 +55,7 @@
   background-color: white;
   color: #000000;
   padding: 1rem;
-  border-radius: 100px;
+  border-radius: 28px;
   align-self: flex-start;
   /*border: 1px solid #8fa2c3;*/
   max-width: 100%;
