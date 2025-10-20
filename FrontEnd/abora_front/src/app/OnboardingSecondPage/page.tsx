@@ -12,7 +12,12 @@ import AvatarBlock from '@/app/Components/feature/AvatarBlock/AvatarBlock';
 import { Role } from '@/app/types/enum';
 import { RoleConfig } from '@/app/config/RoleConfig';
 import { supabase } from '@/lib/supabase';
-import roleToKorean from '@/app/config/mapKorean';
+// import roleToKorean from '@/app/config/mapKorean';
+import Bottom from "@/app/Components/common/Bottom";
+
+function Header() {
+    return null;
+}
 
 export default function OnboardingSecondPage() {
   const router = useRouter();
@@ -145,6 +150,7 @@ export default function OnboardingSecondPage() {
   return (
     <div className={common.container}>
       <div className={common.scrollLayer}>
+          <Header/>
         <h3 className={style.headerText}>오늘은 어떤 상황을 연습해볼까요?</h3>
         <div className={style.container}>
           <h3 className={style.headerText}>시나리오를 선택하기</h3>
@@ -172,9 +178,12 @@ export default function OnboardingSecondPage() {
           </div>
         </div>
         <div className={style.container}>
-          <h3 className={style.headerText}>
-            {roleData.role}인 당신과 함께할 동료를 소개합니다.
-          </h3>
+            <div>
+                <h3 className={style.headerText}>
+                    함께할 동료는 누구인가요?
+                </h3>
+                <div className={style.headerText}>당신의 직군인 {roleData.role}에 맞게 설정되었어요!</div>
+            </div>
           <div className={style.roleSection}>
             {Object.values(Role)
               .filter((role) => roleParam != role)
@@ -205,6 +214,7 @@ export default function OnboardingSecondPage() {
             준비가 완료 되었네요! 함께할 동료에게 인사하러 가볼까요?
           </p>
         </div>
+          <Bottom/>
       </div>
     </div>
   );

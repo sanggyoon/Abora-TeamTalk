@@ -9,6 +9,8 @@ import { useState } from "react";
 import common from "@/app/Components/common/common.module.css"
 import {Role} from "@/app/types/enum";
 import WhiteBlock from "@/app/Components/ui/WhiteBloack/WhiteBlock";
+import Header from "../Components/common/Header";
+import Bottom from "@/app/Components/common/Bottom";
 
 export default function OnboardingFirstPage() {
     const router = useRouter();
@@ -46,6 +48,7 @@ export default function OnboardingFirstPage() {
 
     return (
         <div className={common.container}>
+            <div className={common.scrollLayer}>
             <h3 className={style.headerText}>당신은 어떤 사람인가요?</h3>
             <div className={common.container}>
                 <h3 className={style.headerText}>당신은 직군을 선택하세요</h3>
@@ -76,6 +79,8 @@ export default function OnboardingFirstPage() {
                     </button>
                 </TitleTextBlock>
                 <p className={style.buttonDesc}>어떤 상황을 연습해볼까요? 시나리오를 만들어볼까요?</p>
+            </div>
+            {/*<Bottom/>*/}
             </div>
         </div>
     );

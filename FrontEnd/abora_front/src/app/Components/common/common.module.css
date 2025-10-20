@@ -22,6 +22,9 @@
     overflow-y: auto; /* ✅ 여기만 스크롤 */
     padding: 20px;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
 }
 .scrollLayer::-webkit-scrollbar {
     display: none;             /* ✅ Chrome, Safari용 */
