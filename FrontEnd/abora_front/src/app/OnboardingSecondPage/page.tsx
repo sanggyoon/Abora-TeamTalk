@@ -81,6 +81,7 @@ export default function OnboardingSecondPage() {
       // 4. Role을 한글로 변환하는 함수
       const roleToKorean = (role: Role): string => {
         const roleMap: Record<Role, string> = {
+          [Role.User]: '사용자',
           [Role.Developer]: '개발자',
           [Role.Planner]: '기획자',
           [Role.Designer]: '디자이너',
@@ -88,9 +89,9 @@ export default function OnboardingSecondPage() {
         return roleMap[role];
       };
 
-      // 5. agent 역할 결정 (사용자 역할 제외한 나머지 2개)
+      // 5. agent 역할 결정 (사용자 역할과 User 제외한 나머지 2개)
       const otherRoles = Object.values(Role).filter(
-        (role) => role !== roleParam
+        (role) => role !== Role.User && role !== roleParam
       );
       const agentA = otherRoles[0];
       const agentB = otherRoles[1];
@@ -177,7 +178,7 @@ export default function OnboardingSecondPage() {
           </h3>
           <div className={style.roleSection}>
             {Object.values(Role)
-              .filter((role) => roleParam != role)
+              .filter((role) => role !== Role.User && role !== roleParam) // User 제외 + 선택한 role 제외
               .map((role) => {
                 return (
                   <AvatarBlock

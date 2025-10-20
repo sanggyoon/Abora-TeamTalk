@@ -51,9 +51,11 @@ export default function OnboardingFirstPage() {
                 <h3 className={style.headerText}>당신은 직군을 선택하세요</h3>
                 <div className={style.roleSection}>
                     {
-                        Object.values(Role).map((role, idx)=>{
-                            return <WhiteBlock as="button" onClick={() => handleSelectRole(role,idx)} key={role} role={role} style={{ border: `2px solid ${selectedRoleIndex === idx ? "var(--select-color)" : "white"}` }}/>;
-                        })
+                        Object.values(Role)
+                            .filter(role => role !== Role.User) // User는 제외
+                            .map((role, idx)=>{
+                                return <WhiteBlock as="button" onClick={() => handleSelectRole(role,idx)} key={role} role={role} style={{ border: `2px solid ${selectedRoleIndex === idx ? "var(--select-color)" : "white"}` }}/>;
+                            })
                     }
                 </div>
             </div>

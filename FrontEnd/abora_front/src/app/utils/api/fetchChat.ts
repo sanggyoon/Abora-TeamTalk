@@ -10,6 +10,11 @@ export async function sendChatMessage( content : string) {
 
     const session: ChatSession = JSON.parse(savedSession);
 
+    // 세션 데이터 검증
+    if (!session.worker1_role || !session.worker2_role) {
+        throw new Error("세션에 worker role 정보가 없습니다.");
+    }
+
     //  2 메시지 구성
     const body: Chat = {
         session_id: session.session_id,
@@ -21,17 +26,25 @@ export async function sendChatMessage( content : string) {
     };
 
     console.log("📤 전송할 데이터:", JSON.stringify(body, null, 2));
-    console.log("📡 API URL:", `${process.env.NEXT_PUBLIC_API_URL}/webhook/expert-models`);
+    
+    const targetUrl = `${process.env.NEXT_PUBLIC_API_URL}/webhook/expert-models`;
+    console.log("📡 API URL:", targetUrl);
 
     // 3 API 전송
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/webhook/expert-models`, {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 480000); // 480초 타임아웃
+
+        const res = await fetch(targetUrl, {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(body),
+            signal: controller.signal,
         });
+
+        clearTimeout(timeoutId);
 
         console.log("✅ 응답 상태:", res.status);
         console.log("✅ 응답 헤더:", Object.fromEntries(res.headers.entries()));

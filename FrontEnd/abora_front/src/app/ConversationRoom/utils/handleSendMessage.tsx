@@ -35,18 +35,22 @@ export default async function handleSendMessage(
   try {
     // 2. 백엔드로 메시지 전송
     const data: ResponseChatResponse = await sendChatMessage(inputValue);
-    console.log("data:", data);
+    console.log("📥 [응답 받음] data:", data);
 
     // 3. 백엔드에서 받은 messages 배열 처리
     if (!data.success || !data.messages || data.messages.length === 0) {
-      console.error("응답 데이터가 올바르지 않습니다.");
+      console.error("❌ 응답 데이터가 올바르지 않습니다.");
       return;
     }
+
+    console.log("📋 [원본 메시지]", data.messages);
 
     // 4. 두 개의 AI 답변을 ClientChatMessage 배열로 변환
     const newMessages: ClientChatMessage[] = data.messages.map((msg) => {
       const aiRoleEnglish = getRoleByKorean(msg.ai_role);
       const type = aiRoleEnglish === agentA ? ChatRole.AgentA : aiRoleEnglish === agentB ? ChatRole.AgentB : ChatRole.User;
+
+      console.log(`🔄 [변환] ${msg.ai_role} (${aiRoleEnglish}) → ${type}`);
 
       return {
         speaker: msg.ai_role ?? "AI",
@@ -56,14 +60,14 @@ export default async function handleSendMessage(
       };
     });
 
-    console.log("newMessages:", newMessages);
+    console.log("✅ [변환 완료] newMessages:", newMessages);
 
     // 5. 두 메시지를 순차적으로 재생 준비
     setMessagesToPlay(newMessages);  // 전체 메시지 큐 설정 (2개)
     setCurrentIndex(0);              // 첫 메시지부터 시작
 
   } catch (error) {
-    console.error('Error:', error);
+    console.error('❌ Error:', error);
   }
 
 

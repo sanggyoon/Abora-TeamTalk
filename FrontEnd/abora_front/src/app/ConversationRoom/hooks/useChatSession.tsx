@@ -17,12 +17,14 @@ export function useChatSession() {
     }, []);
 
     // 새로운 세션 생성 및 저장
-    const createSession = (id: number, role: Role, room_name:string) => {
+    const createSession = (id: number, role: Role, room_name: string, worker1_role: Role, worker2_role: Role) => {
         const newSession: ChatSession = {
             session_id: id,
             sender_role: role,
             is_user: true,
-            room_name : room_name
+            room_name: room_name,
+            worker1_role: worker1_role,
+            worker2_role: worker2_role
         };
         localStorage.setItem("chatSession", JSON.stringify(newSession));
         setSession(newSession);

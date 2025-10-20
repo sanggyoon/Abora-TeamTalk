@@ -28,6 +28,19 @@ function ConversationContent() {
   const agentAData : AgentData = RoleConfig[agentA];//진짜 role 역할인거임
   const agentBData : AgentData = RoleConfig[agentB];
 
+  // 세션 확인 (OnboardingSecondPage에서 생성된 세션 사용)
+  useEffect(() => {
+    const savedSession = localStorage.getItem("chatSession");
+    if (!savedSession) {
+      console.error("❌ 세션이 없습니다. OnboardingSecondPage에서 세션을 생성해야 합니다.");
+      alert("세션 정보가 없습니다. 다시 시작해주세요.");
+      // router.push("/OnboardingFirstPage"); // 필요시 활성화
+    } else {
+      const session = JSON.parse(savedSession);
+      console.log("✅ 기존 세션 사용:", session);
+    }
+  }, []);
+
   //현재 시간
   const currentTime = new Date().toLocaleString();
   const [currentIndex, setCurrentIndex] = useState(-1);
