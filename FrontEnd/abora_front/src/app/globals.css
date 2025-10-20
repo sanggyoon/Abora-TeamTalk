@@ -3,7 +3,7 @@
   radial-gradient(circle at bottom right, #a2e9ff, transparent), #7a70e0;
   min-height: 100vh;
   --foreground: #ededed;
-  --signature: #8c7cff;
+  --signature: #000000;
   --headerFooterHeight: 4rem;
 
   --gray-text : #000000;

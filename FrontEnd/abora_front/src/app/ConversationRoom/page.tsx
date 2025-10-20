@@ -164,45 +164,72 @@ function ConversationContent() {
           </div>
         </div>
 
-        {/* 채팅 영역 */}
-        <div className={styles.chatBox} ref={chatBoxRef}>
-          <AgentABubble
-            message={`안녕, 나는 <b>${agentAData.name}</b>이야.`}
-            timestamp={currentTime}
-          />
-          <AgentBBubble
-            message={`안녕, 나는  <b>${agentBData.name}</b>이야.`}
-            timestamp={currentTime}
-          />
-          {messages.map((msg, index) => {
-            if (msg.type === ChatRole.User) {
-              return (
-                <UserBubble
-                  key={index}
-                  message={msg.message}
-                  timestamp={msg.timestamp}
-                />
-              );
-            } else if (msg.type === ChatRole.AgentA) {
-              return (
-                <AgentABubble
-                  key={index}
-                  message={msg.message}
-                  timestamp={msg.timestamp}
-                />
-              );
-            } else if (msg.type === ChatRole.AgentB) {
-              return (
-                <AgentBBubble
-                  key={index}
-                  message={msg.message}
-                  timestamp={msg.timestamp}
-                />
-              );
-            }
-            return null;
-          })}
-        </div>
+          <div style={{width:'50%',display: 'flex',flexDirection:'column',alignItems:'center'}}>
+              {/* 채팅 영역 */}
+              <div className={styles.chatBox} ref={chatBoxRef}>
+                  <AgentABubble
+                      message={`안녕, 나는 <b>${agentAData.name}</b>이야.`}
+                      timestamp={currentTime}
+                  />
+                  <AgentBBubble
+                      message={`안녕, 나는  <b>${agentBData.name}</b>이야.`}
+                      timestamp={currentTime}
+                  />
+                  {messages.map((msg, index) => {
+                      if (msg.type === ChatRole.User) {
+                          return (
+                              <UserBubble
+                                  key={index}
+                                  message={msg.message}
+                                  timestamp={msg.timestamp}
+                              />
+                          );
+                      } else if (msg.type === ChatRole.AgentA) {
+                          return (
+                              <AgentABubble
+                                  key={index}
+                                  message={msg.message}
+                                  timestamp={msg.timestamp}
+                              />
+                          );
+                      } else if (msg.type === ChatRole.AgentB) {
+                          return (
+                              <AgentBBubble
+                                  key={index}
+                                  message={msg.message}
+                                  timestamp={msg.timestamp}
+                              />
+                          );
+                      }
+                      return null;
+                  })}
+              </div>
+              {/* 채팅 입력 영역 */}
+              <div className={styles.chatInput}>
+                  <input
+                      type="text"
+                      placeholder="" //예시 주석 달아주세요
+                      value={inputValue}
+                      onFocus={() => setIsFocused(true)}
+                      onBlur={() => setIsFocused(false)}
+                      onChange={(e) => setInputValue(e.target.value)}
+                      onKeyDown={(e) => {
+                          if (e.key === 'Enter' && !e.nativeEvent.isComposing && !isLoading) {
+                              handleSendMessageWithLoading();
+                          }
+                      }}
+                      disabled={isLoading} // isLoading이 true일 때 비활성화
+                  />
+                  <button
+                      className={styles.button_send}
+                      onClick={handleSendMessageWithLoading}
+                      disabled={isLoading} // isLoading이 true일 때 비활성화
+                  >
+                      Enter
+                  </button>
+              </div>
+
+          </div>
 
         {/* 에이전트 B */}
         <div className={styles.choosenAgent_B}>
@@ -225,31 +252,6 @@ function ConversationContent() {
             })}
           </div>
         </div>
-      </div>
-
-      {/* 채팅 입력 영역 */}
-      <div className={styles.chatInput}>
-        <input
-          type="text"
-          placeholder="ex) " //예시 주석 달아주세요
-          value={inputValue}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
-          onChange={(e) => setInputValue(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' && !e.nativeEvent.isComposing && !isLoading) {
-              handleSendMessageWithLoading();
-            }
-          }}
-          disabled={isLoading} // isLoading이 true일 때 비활성화
-        />
-        <button
-          className={styles.button_send}
-          onClick={handleSendMessageWithLoading}
-          disabled={isLoading} // isLoading이 true일 때 비활성화
-        >
-          Send
-        </button>
       </div>
     </>
   );
