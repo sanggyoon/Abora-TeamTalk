@@ -1,16 +1,25 @@
+.BadgeContainer{
+    display: flex;
+    gap: 1rem;
+}
+
 .icon {
 
 }
 
 .name {
-
+    display: flex;
+    font-weight: bold;
+    font-size: large;
 }
 
 .role {
+    display: flex;
+    font-size: medium;
 
 }
 
 .nameImg {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }

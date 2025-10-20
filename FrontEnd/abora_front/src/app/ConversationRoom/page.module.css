@@ -48,10 +48,10 @@
 
 .name_agentA,
 .name_agentB {
-  background-color: #282631;
+  background-color: #ffffff;
   color: #ebdbff;
-  border: solid 1px #ae9ecd;
-  border-radius: 10px;
+  /*border: solid 1px #ae9ecd;*/
+  border-radius: 2rem;
   margin: 0 auto;
   padding: 10px 20px;
   font-size: 1.3rem;

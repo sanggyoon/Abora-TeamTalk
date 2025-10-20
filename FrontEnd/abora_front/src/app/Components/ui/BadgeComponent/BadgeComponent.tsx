@@ -15,16 +15,16 @@ interface RoleBadgeProps{
 
 export default function BadgeComponent({color="black", name="defalut", role="defalut", iconSrc=""}:RoleBadgeProps){
     return (
-        <div>
+        <div className={styles.BadgeContainer}>
+            <Image src={iconSrc} alt={`${name} 아이콘`} className={styles.icon} width={40} height={40}/>
             <div className={styles.nameImg}>
-                <Image src={iconSrc} alt={`${name} 아이콘`} className={styles.icon} width={30} height={30}/>
+                <div className={styles.role}>
+                {role}
+                </div>
                 <div className={styles.name} style={{color:color}}>
                     {name}
                 </div>
             </div>
-            <span className={styles.role}>
-                {role}
-            </span>
         </div>
     );
 }

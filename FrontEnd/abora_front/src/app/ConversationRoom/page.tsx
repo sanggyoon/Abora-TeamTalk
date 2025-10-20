@@ -13,6 +13,7 @@ import {ChatRole, Role} from "@/app/types/enum";
 import {RoleConfig} from "@/app/config/RoleConfig";
 import {LipSyncData, Message} from "@/app/types/interface";
 import {useMessagePlayer} from "@/app/ConversationRoom/hooks/useMessagePlayer";
+import RoldBadge from "@/app/Components/ui/RoleBadge/RoleBadge";
 
 function ConversationContent() {
 
@@ -149,8 +150,9 @@ function ConversationContent() {
               />
           )}
           <div className={styles.agent_A_avatar}>
-            <div className={styles.name_agentA}>
-              <InitialScrambleText to={agentA}/>
+            <div className={styles.name_agentA}>{/*이름*/}
+              {/*<InitialScrambleText to={agentA}/> */}
+                <RoldBadge role={agentA}/>
             </div>
             {renderAvatar(agentA, currentActionA, lipSyncA, () => {
               setIsSpeakingA(false); // 재생 종료
@@ -240,7 +242,9 @@ function ConversationContent() {
               />
           )}
           <div className={styles.agent_B_avatar}>
-            <div className={styles.name_agentB}><InitialScrambleText to={agentB}/></div>
+            <div className={styles.name_agentB}>
+                <RoldBadge role={agentB}/>
+            </div>
             {renderAvatar(agentB, currentActionB, lipSyncB, () => {
               setIsSpeakingB(false); // 재생 종료
               if (currentSpeaker === ChatRole.AgentB)
