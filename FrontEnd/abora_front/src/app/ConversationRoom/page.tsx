@@ -182,11 +182,11 @@ function ConversationContent() {
                       message={`${roleUserData.role}로서 회의를 시작합니다.`}
                   />
                   <AgentABubble
-                      message={`안녕, 나는 <b>${agentAData.name}</b>이야.`}
+                      message={`안녕하세요, 자기소개를 해볼까요? 저는 <b>${agentAData.name}</b>입니다.`}
                       timestamp={currentTime}
                   />
                   <AgentBBubble
-                      message={`안녕, 나는  <b>${agentBData.name}</b>이야.`}
+                      message={`안녕하세요, 저는  <b>${agentBData.name}</b>입니다. 잘부탁드립니다! 당신은 누구신가요?`}
                       timestamp={currentTime}
                   />
                   {messages.map((msg, index) => {
