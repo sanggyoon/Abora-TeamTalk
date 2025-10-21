@@ -93,7 +93,7 @@ p {
 }
 
 input{
-  text-align: center;
+  /*text-align: center;*/
 }
 
 header span,
@@ -116,12 +116,14 @@ footer span {
   font-family: 'Pretendard-Regular';
   src: url('/fonts/Pretendard-Regular.otf') format('opentype');
   font-style: normal;
+    font-weight: 400;
 }
 
 @font-face {
   font-family: 'Pretendard-Black';
   src: url('/fonts/Pretendard-Black.otf') format('opentype');
   font-style: normal;
+    font-weight: 900;
 }
 
 body {

@@ -88,7 +88,8 @@
   border: none;
   background-color: var(--background);
   color: var(--signature);
-  margin: auto 0;
+  /*margin: auto 0;*/
+    margin-left: 20px;
   font-size: 1.1rem;
   outline: none;
 }

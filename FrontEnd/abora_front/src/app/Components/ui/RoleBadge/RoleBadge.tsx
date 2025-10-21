@@ -6,7 +6,7 @@ interface RoleBadgeProps{
     role : Role
 }
 
-export default function RoldBadge({role}:RoleBadgeProps) {
+export default function RoleBadge({role}:RoleBadgeProps) {
     const roleData = RoleConfig[role];
 
     return (

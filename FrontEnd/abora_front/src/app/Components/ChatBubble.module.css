@@ -5,10 +5,10 @@
 }
 
 .userBubble {
-  background-color: white;
+  background-color: #ffe6b5;
   color: black;
   padding: 1rem;
-  border-radius: 1rem;
+  border-radius: 2rem;
   align-self: flex-end;
 }
 
