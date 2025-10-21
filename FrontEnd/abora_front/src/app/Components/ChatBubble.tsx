@@ -7,6 +7,16 @@ type ChatBubbleProps = {
   timestamp?: string;
 };
 
+//
+export const MediatorBubble: React.FC<ChatBubbleProps> = ({message})=>(
+    <div className={`${styles.mediatorBubbleContainer} ${styles.bubbleAnimation}`}>
+        {/*{timestamp && <span className={styles.timestamp}>{timestamp}</span>}*/}
+        <div className={styles.mediatorBubble}>
+            <TypingText text = {message} className = {styles.agentBubble_typing}/>
+        </div>
+    </div>
+);
+
 export const UserBubble: React.FC<ChatBubbleProps> = ({
   message,
   // timestamp,

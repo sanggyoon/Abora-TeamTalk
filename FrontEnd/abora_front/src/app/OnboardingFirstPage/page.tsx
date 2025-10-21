@@ -9,8 +9,8 @@ import { useState } from "react";
 import common from "@/app/Components/common/common.module.css"
 import {Role} from "@/app/types/enum";
 import WhiteBlock from "@/app/Components/ui/WhiteBloack/WhiteBlock";
-import Header from "../Components/common/Header";
-import Bottom from "@/app/Components/common/Bottom";
+// import Header from "../Components/common/Header";
+// import Bottom from "@/app/Components/common/Bottom";
 
 export default function OnboardingFirstPage() {
     const router = useRouter();

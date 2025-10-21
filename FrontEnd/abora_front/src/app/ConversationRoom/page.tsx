@@ -7,7 +7,7 @@ import {useSearchParams} from 'next/navigation';
 import AvatarScene from '../Components/Avatar/AvatarScene';
 import handleSendMessage from './utils/handleSendMessage';
 
-import {AgentABubble, AgentBBubble, UserBubble,} from '../Components/ChatBubble';
+import {AgentABubble, AgentBBubble, MediatorBubble, UserBubble,} from '../Components/ChatBubble';
 // import InitialScrambleText from '../Components/GSAP/InitialScrambleText';
 import {ChatRole, Role} from "@/app/types/enum";
 import {RoleConfig} from "@/app/config/RoleConfig";
@@ -17,15 +17,24 @@ import RoleBadge from "@/app/Components/ui/RoleBadge/RoleBadge";
 
 function ConversationContent() {
 
-  //코드에서 변수명을 바꾸는 일이 없도록 하기 위해 이곳에서 모든 변수의 값을 관리합니다.
+    // const router = useRouter();
+
+
+    //코드에서 변수명을 바꾸는 일이 없도록 하기 위해 이곳에서 모든 변수의 값을 관리합니다.
   type AgentData = (typeof RoleConfig)[keyof typeof RoleConfig]; //? 이게뭐지
 
   const searchParams = useSearchParams();
+
   //agent
+  //const roleUser:Role = searchParams?.get('user') as Role;
+  const roleParam = searchParams?.get('role') as Role;
+  console.log(roleParam);
   const agentA:Role = searchParams?.get("agentA") as Role;
   const agentB:Role = searchParams?.get("agentB") as Role;
 
   //agentData
+  const roleUserData : AgentData = RoleConfig[roleParam];
+  console.log(roleUserData);
   const agentAData : AgentData = RoleConfig[agentA];//진짜 role 역할인거임
   const agentBData : AgentData = RoleConfig[agentB];
 
@@ -169,6 +178,9 @@ function ConversationContent() {
           <div style={{width:'50%',display: 'flex',flexDirection:'column',alignItems:'center'}}>
               {/* 채팅 영역 */}
               <div className={styles.chatBox} ref={chatBoxRef}>
+                  <MediatorBubble
+                      message={`${roleUserData.role}로서 회의를 시작합니다.`}
+                  />
                   <AgentABubble
                       message={`안녕, 나는 <b>${agentAData.name}</b>이야.`}
                       timestamp={currentTime}

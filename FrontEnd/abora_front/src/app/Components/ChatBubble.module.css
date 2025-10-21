@@ -1,3 +1,20 @@
+.mediatorBubbleContainer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.mediatorBubble {
+    background-color: rgba(255, 255, 255, 0.59);
+    color: #747474;
+    border: 1px solid #ffffff;
+    padding: 0.7rem 2rem;
+    border-radius: 2rem;
+    align-self: center;
+}
+
 .userBubbleContainer {
   position: relative;
   margin-top: 1rem;
