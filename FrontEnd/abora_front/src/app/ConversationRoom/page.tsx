@@ -28,13 +28,11 @@ function ConversationContent() {
   //agent
   //const roleUser:Role = searchParams?.get('user') as Role;
   const roleParam = searchParams?.get('role') as Role;
-  console.log(roleParam);
   const agentA:Role = searchParams?.get("agentA") as Role;
   const agentB:Role = searchParams?.get("agentB") as Role;
 
   //agentData
   const roleUserData : AgentData = RoleConfig[roleParam];
-  console.log(roleUserData);
   const agentAData : AgentData = RoleConfig[agentA];//진짜 role 역할인거임
   const agentBData : AgentData = RoleConfig[agentB];
 
