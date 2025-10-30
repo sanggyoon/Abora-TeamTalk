@@ -33,12 +33,12 @@ export async function sendChatMessage( content : string) {
             body: JSON.stringify(body),
         });
 
-        console.log("✅ 응답 상태:", res.status);
-        console.log("✅ 응답 헤더:", Object.fromEntries(res.headers.entries()));
+        console.log("응답 상태:", res.status);
+        console.log("응답 헤더:", Object.fromEntries(res.headers.entries()));
 
         if (!res.ok) {
             const errorText = await res.text();
-            console.error("❌ 에러 응답:", errorText);
+            console.error("에러 응답:", errorText);
             throw new Error(`메시지 전송 실패: ${res.status} - ${errorText}`);
         }
 
