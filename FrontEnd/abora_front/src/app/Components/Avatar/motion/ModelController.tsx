@@ -50,6 +50,7 @@ export default function ModelController({
     useEffect(() => {
         if (!jsonFilename || !mp3Filename) return;
 
+        //해당 부분에서 whisper 삭제
         const playWithLipSync = async () => {
             const res = await fetch(`http://localhost:8000/tts/json/${jsonFilename}`);
             const segments: { text: string; start: number; end: number }[] = await res.json();
