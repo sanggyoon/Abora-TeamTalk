@@ -44,7 +44,7 @@ export async function sendChatMessage( content : string) {
 
         //4 응답 반환(응답 받은 text)
         const text = await res.text();
-        console.log("📥 응답 텍스트:", text);
+        console.log(" 응답 텍스트:", text);
 
         if (!text) {
             throw new Error("응답이 비어있습니다.");
@@ -52,15 +52,15 @@ export async function sendChatMessage( content : string) {
 
         try {
             const parsed = JSON.parse(text);
-            console.log("✅ 파싱된 데이터:", parsed);
+            console.log("파싱된 데이터:", parsed);
             return parsed;
         } catch (parseError) {
-            console.error("❌ JSON 파싱 실패:", parseError);
+            console.error("JSON 파싱 실패:", parseError);
             throw new Error(`JSON 파싱 실패: ${text}`);
         }
 
     } catch (fetchError) {
-        console.error("❌ Fetch 에러:", fetchError);
+        console.error("Fetch 에러:", fetchError);
         throw fetchError;
     }
 
