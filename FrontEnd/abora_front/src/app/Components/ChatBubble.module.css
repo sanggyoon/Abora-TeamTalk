@@ -48,6 +48,7 @@
 .agentABubble {
   background-color: white;
   color: #000000;
+    margin-right: 20px;
   padding: 1rem;
   border-radius: 28px;
   align-self: flex-end;
@@ -71,6 +72,7 @@
 .agentBBubble {
   background-color: white;
   color: #000000;
+    margin-left: 20px;
   padding: 1rem;
   border-radius: 28px;
   align-self: flex-start;
