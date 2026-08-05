@@ -21,7 +21,11 @@ export default function TypingText({
 
     useEffect(() => {
         if (textRef.current) {
-            const charSpeed = 0.08; // 한 글자당 0.1초
+            // 초기화: 기존 애니메이션 정리
+            gsap.killTweensOf(textRef.current);
+            textRef.current.textContent = '';
+
+            const charSpeed = 0.08; // 한 글자당 0.08초
             const totalDuration = text.length * charSpeed;
 
             gsap.to(textRef.current, {
